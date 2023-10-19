@@ -24,10 +24,21 @@ const page = () => {
     } = useForm<IssueForm>({
         resolver: zodResolver(createIssueSchema),
     });
-    const router = useRouter();
 
+    const router = useRouter();
     const [error, setError] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
+
+    const onSubmit = handleSubmit(async (data) => {
+        try {
+            setSubmitting(true);
+            await axios.post('/api/issues', data);
+            router.push('/issues');
+        } catch (error) {
+            setSubmitting(false);
+            setError('An unexpected error has been occurred.');
+        }
+    });
 
     return (
         <div className="max-w-xl">
@@ -36,19 +47,7 @@ const page = () => {
                     <Callout.Text>{error}</Callout.Text>
                 </Callout.Root>
             )}
-            <form
-                className=" space-y-5"
-                onSubmit={handleSubmit(async (data) => {
-                    try {
-                        setSubmitting(true);
-                        await axios.post('/api/issues', data);
-                        router.push('/issues');
-                    } catch (error) {
-                        setSubmitting(false);
-                        setError('An unexpected error has been occurred.');
-                    }
-                })}
-            >
+            <form className=" space-y-5" onSubmit={onSubmit}>
                 <TextField.Root>
                     <TextField.Input
                         placeholder="Title"
