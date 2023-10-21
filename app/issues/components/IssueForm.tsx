@@ -2,7 +2,7 @@
 
 import { ErrorMessage, Spinner } from '@/app/components';
 
-import { createIssueSchema } from '@/app/validationSchema';
+import { IssueSchema } from '@/app/validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Callout, TextField } from '@radix-ui/themes';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
     ssr: false,
 });
 
-type IssueFormData = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof IssueSchema>;
 
 const IssueForm = () => {
     const {
@@ -27,7 +27,7 @@ const IssueForm = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<IssueFormData>({
-        resolver: zodResolver(createIssueSchema),
+        resolver: zodResolver(IssueSchema),
     });
 
     const router = useRouter();
