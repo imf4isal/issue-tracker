@@ -1,11 +1,10 @@
-import { Link } from '@/app/components';
 import IssueBadge from '@/app/components/IssueBadge';
 import prisma from '@/prisma/client';
-import { Pencil2Icon } from '@radix-ui/react-icons';
-import { Box, Button, Card, Flex, Grid, Heading, Text } from '@radix-ui/themes';
+import { Box, Card, Flex, Grid, Heading, Text } from '@radix-ui/themes';
 import delay from 'delay';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import EditIssueButton from './EditIssueButton';
 
 interface Props {
     params: { id: string };
@@ -33,10 +32,7 @@ const page = async ({ params }: Props) => {
                 </Card>
             </Box>
             <Box>
-                <Button>
-                    <Pencil2Icon />
-                    <Link href={`/issues/${issue.id}/edit`}>Edit Issue</Link>
-                </Button>
+                <EditIssueButton issueId={issue.id} />
             </Box>
         </Grid>
     );
