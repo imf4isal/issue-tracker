@@ -6,14 +6,14 @@ interface Props {
     params: { id: string };
 }
 
-const EditIssuePage = ({ params }: Props) => {
-    const issue = prisma.issue.findUnique({
+const EditIssuePage = async ({ params }: Props) => {
+    const issue = await prisma.issue.findUnique({
         where: { id: parseInt(params.id) },
     });
 
     if (!issue) notFound();
 
-    return <IssueForm />;
+    return <IssueForm issue={issue} />;
 };
 
 export default EditIssuePage;
