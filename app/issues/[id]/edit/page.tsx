@@ -1,5 +1,6 @@
 import prisma from '@/prisma/client';
 import { notFound } from 'next/navigation';
+import IssueForm from '../../components/IssueForm';
 
 interface Props {
     params: { id: string };
@@ -12,7 +13,7 @@ const EditIssuePage = ({ params }: Props) => {
 
     if (!issue) notFound();
 
-    return <div>EditIssuePage</div>;
+    return <IssueForm />;
 };
 
 export default EditIssuePage;
